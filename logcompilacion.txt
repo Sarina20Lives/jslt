@@ -1,0 +1,3 @@
+Proceso de compilación de bison
+Proceso de compilación de flex
+Compilación terminada

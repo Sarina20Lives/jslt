@@ -1,0 +1,7 @@
+echo "Proceso de compilación de bison"
+bison -o sintactico_jslt.cpp --defines=sintactico_jslt.h --name-prefix=jslt sintactico_jslt.y
+
+echo "Proceso de compilación de flex"
+flex -o lexico_jslt.cpp --header-file=lexico_jslt.h --prefix=jslt lexico_jslt.l
+
+echo "Compilación terminada"

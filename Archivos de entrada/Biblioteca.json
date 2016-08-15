@@ -1,0 +1,61 @@
+{"biblioteca":{
+	"libros":[
+		{
+			"titulo":"La maestría del amor",
+			"escritor":"Miguel Ruiz",
+			"anio":"1984",
+			"paginas":"175",
+			"generos":["psicología", "social"],
+			"precio":"165.00"	
+		},
+		{
+			"titulo":"¿Por qué sufro cuando sufro?",
+			"escritor":"Claudia Gonzalez",
+			"anio":"2000",
+			"paginas":"110",
+			"generos":["psicología", "social"],
+			"precio":"99.99"	
+		},
+		{
+			"titulo":"Eleanor & Park",
+			"escritor":"-Pendiente-",
+			"anio":"2015",
+			"paginas":"279",
+			"generos":["romance", "drama", "vida diaria"],
+			"precio":"300.00"	
+		},
+		{
+			"titulo":"Carazamba",
+			"escritor":"Virgilio Rodriguez Macal",
+			"anio":"1994",
+			"paginas":"167",
+			"generos":["romance", "drama", "mayor de 18", "violencia moderada"],
+			"precio":"150.00"	
+		},
+		{
+			"titulo":"El señor presidente",
+			"escritor":"Miguel Angel Asturias",
+			"anio":"1980",
+			"paginas":"200",
+			"generos":["política", "social", "biografía"],
+			"precio":"85.50"	
+		},
+		{
+			"titulo":"Diccionario Inglés Español",
+			"escritor":"Editorial Navarro",
+			"anio":"1990",
+			"paginas":"400",
+			"generos":["lenguajes"],
+			"precio":"91.00"	
+		},
+		{
+			"titulo":"Orgullo y Prejuicio",
+			"escritor":"Jane Austen",
+			"anio":"1950",
+			"paginas":"240",
+			"generos":["romance", "epoca", "vida diaria"],
+			"precio":"67.00"	
+		}
+	]
+}}
+

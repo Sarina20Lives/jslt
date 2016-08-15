@@ -1,0 +1,56 @@
+<# Biblioteca en JSL #>
+<jsl:transformacion ruta="/biblioteca.json" version="1.0">
+	<jsl:variable cadena=titulo/>
+
+	##Plantilla principal
+	<jsl:plantilla nombreObj=@>
+		<jsl:asignar variable=titulo valor="Mi Biblioteca"/>
+		<html>
+			<head>
+				<title>titulo</title>
+			</head>
+			<body>
+				<h1>Libros en la biblioteca</h1>
+				<table border="1">
+					<tr>
+						<th>"Título"</th>
+						<th>"Escritor"</th>
+						<th>"Año"</th>
+						<th>"Páginas"</th>
+						<th>"Géneros"</th>
+						<th>"Precio"</th>
+					</tr>
+					<jsl:para-cada seleccionar=biblioteca@libros>
+						<tr>
+							<td>
+								<jsl:en-caso>
+									<jsl:de condicion=paginas &gt 200>
+										<b><jsl:valor-de seleccionar=titulo/></b>
+									</jsl:de>
+									<jsl:de condicion=paginas &lt 100>
+										<i><jsl:valor-de seleccionar=titulo/></i>
+									</jsl:de>
+									<jsl:cualquier-otro>
+										<jsl:valor-de seleccionar=titulo/>
+									</jsl:cualquier-otro>
+								</jsl:en-caso>
+							</td>
+							<td><jsl:valor-de seleccionar=escritor/></td>
+							<td><jsl:valor-de seleccionar=anio/></td>
+							<td><jsl:valor-de seleccionar=paginas/></td>
+							<td>
+								<jsl:para-cada seleccionar=generos>
+									<b><jsl:valor-de seleccionar=.+" "/></b>
+								</jsl:para-cada>
+							</td>
+							<td><jsl:valor-de seleccionar=precio/></td>
+						</tr>
+					</jsl:para-cada>
+				</table>
+			</body>
+		</html>
+	</jsl:plantilla>
+
+</jsl:final>
+
+

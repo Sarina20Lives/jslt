@@ -12,7 +12,7 @@ private:
     QString id;
     int tipo;
     QString valor;
-    QList<NodoJslt> *nodo;
+    QList<NodoJslt> *nodos;
     QString recorrerNodos(QString &padre, QList<NodoJslt> *&nodos);
     QString declareDOT();
 

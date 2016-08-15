@@ -252,9 +252,11 @@ struct Atributos{
  		{
 	 		$<atri>$ = new Atributos();
 	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, sprintf($<cadena>1, "%s %s", $<cadena>1, $<cadena>2)));
+	 		sprintf($<cadena>1, "%s %s", $<cadena>1, $<cadena>2);
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>3);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, sprintf($<cadena>1, "%s %s", $<cadena>4, $<cadena>5))); 		
+	 		sprintf($<cadena>4, "%s %s", $<cadena>4, $<cadena>5);
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>4)); 		
  		}
 	  	| OPEN_H1 contents CLOSE_H1
  		{
@@ -308,7 +310,8 @@ struct Atributos{
  		{
 	 		$<atri>$ = new Atributos();
 	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3)));
+	 		sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3);
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>4);
 	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>5));
  		}
@@ -316,7 +319,8 @@ struct Atributos{
  		{
 	 		$<atri>$ = new Atributos();
 	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3)));
+	 		sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3);
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>4);
 	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>5));
 	 	}
@@ -324,7 +328,8 @@ struct Atributos{
  		{
 	 		$<atri>$ = new Atributos();
 	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3)));
+	 		sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3);
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1 ));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>4);
 	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>5));
  		}
@@ -332,7 +337,8 @@ struct Atributos{
  		{
 	 		$<atri>$ = new Atributos();
 	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3)));
+	 		sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3);
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1 ));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>4);
 	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>5));
  		}

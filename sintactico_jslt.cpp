@@ -571,21 +571,21 @@ static const yytype_uint16 yyrline[] =
 {
        0,   108,   108,   116,   126,   132,   138,   145,   154,   159,
      166,   172,   180,   186,   193,   198,   203,   208,   213,   218,
-     223,   228,   235,   243,   251,   259,   267,   275,   283,   291,
-     299,   307,   315,   323,   331,   339,   347,   355,   365,   371,
-     377,   385,   395,   404,   412,   420,   429,   438,   446,   452,
-     458,   465,   474,   482,   488,   494,   501,   508,   514,   520,
-     526,   532,   540,   547,   554,   561,   568,   575,   582,   588,
-     595,   602,   609,   616,   623,   630,   637,   645,   652,   659,
-     666,   673,   680,   687,   694,   699,   705,   711,   717,   724,
-     725,   728,   733,   738,   743,   748,   753,   758,   765,   766,
-     767,   768,   769,   770,   771,   772,   773,   774,   775,   776,
-     777,   778,   779,   780,   781,   782,   783,   784,   785,   786,
-     787,   788,   789,   790,   791,   792,   793,   794,   795,   796,
-     797,   798,   799,   800,   801,   802,   803,   804,   805,   806,
-     807,   808,   809,   810,   811,   812,   813,   814,   815,   816,
-     817,   818,   819,   822,   823,   826,   827,   828,   829,   832,
-     833,   834,   835
+     223,   228,   235,   243,   251,   261,   269,   277,   285,   293,
+     301,   309,   318,   327,   336,   345,   353,   361,   371,   377,
+     383,   391,   401,   410,   418,   426,   435,   444,   452,   458,
+     464,   471,   480,   488,   494,   500,   507,   514,   520,   526,
+     532,   538,   546,   553,   560,   567,   574,   581,   588,   594,
+     601,   608,   615,   622,   629,   636,   643,   651,   658,   665,
+     672,   679,   686,   693,   700,   705,   711,   717,   723,   730,
+     731,   734,   739,   744,   749,   754,   759,   764,   771,   772,
+     773,   774,   775,   776,   777,   778,   779,   780,   781,   782,
+     783,   784,   785,   786,   787,   788,   789,   790,   791,   792,
+     793,   794,   795,   796,   797,   798,   799,   800,   801,   802,
+     803,   804,   805,   806,   807,   808,   809,   810,   811,   812,
+     813,   814,   815,   816,   817,   818,   819,   820,   821,   822,
+     823,   824,   825,   828,   829,   832,   833,   834,   835,   838,
+     839,   840,   841
 };
 #endif
 
@@ -1798,15 +1798,17 @@ yyreduce:
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
-	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, fprintf((yyvsp[-4].cadena), "%s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena))));
+	 		sprintf((yyvsp[-4].cadena), "%s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena));
+	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-4].cadena)));
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo));
-	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, fprintf((yyvsp[-4].cadena), "%s %s", (yyvsp[-1].cadena), (yyvsp[0].cadena)))); 		
+	 		sprintf((yyvsp[-1].cadena), "%s %s", (yyvsp[-1].cadena), (yyvsp[0].cadena));
+	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-1].cadena))); 		
  		}
-#line 1806 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1808 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 260 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 262 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1814,11 +1816,11 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1818 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1820 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 268 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 270 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1826,11 +1828,11 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1830 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1832 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 276 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 278 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1838,11 +1840,11 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1842 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1844 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 284 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 286 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1850,11 +1852,11 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1854 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1856 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 292 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 294 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1862,11 +1864,11 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1866 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1868 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 300 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 302 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1874,59 +1876,63 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1878 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1880 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 308 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 310 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
-	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, sprintf((yyvsp[-4].cadena), "%s %s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena), (yyvsp[-2].cadena))));
+	 		sprintf((yyvsp[-4].cadena), "%s %s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena), (yyvsp[-2].cadena));
+	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-4].cadena)));
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1890 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1893 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 316 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 319 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
-	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, sprintf((yyvsp[-4].cadena), "%s %s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena), (yyvsp[-2].cadena))));
+	 		sprintf((yyvsp[-4].cadena), "%s %s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena), (yyvsp[-2].cadena));
+	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-4].cadena)));
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
 	 	}
-#line 1902 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1906 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 324 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 328 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
-	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, sprintf((yyvsp[-4].cadena), "%s %s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena), (yyvsp[-2].cadena))));
+	 		sprintf((yyvsp[-4].cadena), "%s %s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena), (yyvsp[-2].cadena));
+	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-4].cadena) ));
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1914 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1919 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 332 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 337 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
-	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, sprintf((yyvsp[-4].cadena), "%s %s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena), (yyvsp[-2].cadena))));
+	 		sprintf((yyvsp[-4].cadena), "%s %s %s", (yyvsp[-4].cadena), (yyvsp[-3].cadena), (yyvsp[-2].cadena));
+	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-4].cadena) ));
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  		}
-#line 1926 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1932 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 340 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 346 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1934,11 +1940,11 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));		
 	 	}
-#line 1938 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1944 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 348 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 354 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1946,11 +1952,11 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));		
  		}
-#line 1950 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1956 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 356 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 362 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 	 		(yyval.atri) = new Atributos();
 	 		(yyval.atri->nodo) = new NodoJslt(0, "html");
@@ -1958,1000 +1964,1000 @@ yyreduce:
 	 		(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
 	 		(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));		
  		}
-#line 1962 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1968 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 366 "sintactico_jslt.y" /* yacc.c:1646  */
-    {
-		 		(yyval.atri) = new Atributos();
-		 		(yyval.atri) = (yyvsp[0].atri);
-		 		(yyval.atri->nodo)->prepNodo(* (yyvsp[-1].atri->nodo)); 
-		 	}
-#line 1972 "sintactico_jslt.cpp" /* yacc.c:1646  */
-    break;
-
-  case 39:
 #line 372 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 		 		(yyval.atri) = new Atributos();
 		 		(yyval.atri) = (yyvsp[0].atri);
 		 		(yyval.atri->nodo)->prepNodo(* (yyvsp[-1].atri->nodo)); 
+		 	}
+#line 1978 "sintactico_jslt.cpp" /* yacc.c:1646  */
+    break;
+
+  case 39:
+#line 378 "sintactico_jslt.y" /* yacc.c:1646  */
+    {
+		 		(yyval.atri) = new Atributos();
+		 		(yyval.atri) = (yyvsp[0].atri);
+		 		(yyval.atri->nodo)->prepNodo(* (yyvsp[-1].atri->nodo)); 
 	 		}
-#line 1982 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1988 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 378 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 384 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 		 		(yyval.atri) = new Atributos();
 		 		(yyval.atri->nodo) = new NodoJslt(0, "contenido");
 	 		}
-#line 1991 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 1997 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 386 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 392 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri->nodo) = new NodoJslt(0, "declare");
  				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-3].cadena)));
  				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-1].cadena)));
  			}
-#line 2002 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2008 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 396 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 402 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri->nodo) = new NodoJslt(0, "asignar");
  				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-4].cadena)));
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 			
  			}
-#line 2013 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2019 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 405 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 411 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri->nodo) = new NodoJslt(0, "aplicar");
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo)); 			
  			}
-#line 2023 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2029 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 413 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 419 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri->nodo) = new NodoJslt(0, "valor-de");
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo)); 			
  			}
-#line 2033 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2039 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 421 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 427 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri->nodo) = new NodoJslt(0, "para-cada");
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-3].atri->nodo));
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo)); 			
  			}
-#line 2044 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2050 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 430 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 436 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri->nodo) = new NodoJslt(0, "if");
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-3].atri->nodo));
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo)); 			
  			}
-#line 2055 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2061 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 439 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 445 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri->nodo) = new NodoJslt(0, "en-caso");
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo)); 			
  			}
-#line 2065 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2071 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 447 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 453 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  			(yyval.atri) = new Atributos();
  			(yyval.atri) = (yyvsp[0].atri);
  			(yyval.atri->nodo)->prepNodo(* (yyvsp[-1].atri->nodo));
  		}
-#line 2075 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2081 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 453 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 459 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  			(yyval.atri) = new Atributos();
  			(yyval.atri->nodo) = new NodoJslt(0, "casos");
  			(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo));
  		}
-#line 2085 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2091 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 459 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 465 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 			(yyval.atri) = new Atributos();
  			(yyval.atri->nodo) = new NodoJslt(0, "casos");
  		}
-#line 2094 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2100 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 466 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 472 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  			(yyval.atri) = new Atributos();
  			(yyval.atri->nodo) = new NodoJslt(0, "de");
  			(yyval.atri->nodo)->addNodo(* (yyvsp[-3].atri->nodo));
  			(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
  		}
-#line 2105 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2111 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 475 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 481 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  			(yyval.atri) = new Atributos();
  			(yyval.atri->nodo) = new NodoJslt(0, "cualquier-otro");
  			(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
  		}
-#line 2115 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2121 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 483 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 489 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, "referencia");
  				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  			}
-#line 2125 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2131 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 489 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 495 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, "referencia");
  				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
 			}
-#line 2135 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2141 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 495 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 501 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri->nodo) = new NodoJslt(0, "refPuntero");
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-3].atri->nodo));
  				(yyval.atri->nodo)->addNodo(* (yyvsp[-1].atri->nodo));
  			}
-#line 2146 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2152 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 502 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 508 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri) = (yyvsp[0].atri);
  			}
-#line 2155 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2161 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 509 "sintactico_jslt.y" /* yacc.c:1646  */
-    {
- 				(yyval.atri) = new Atributos();
- 				(yyval.atri) = (yyvsp[-1].atri);
- 				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
- 			}
-#line 2165 "sintactico_jslt.cpp" /* yacc.c:1646  */
-    break;
-
-  case 58:
 #line 515 "sintactico_jslt.y" /* yacc.c:1646  */
     {
  				(yyval.atri) = new Atributos();
  				(yyval.atri) = (yyvsp[-1].atri);
  				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  			}
-#line 2175 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2171 "sintactico_jslt.cpp" /* yacc.c:1646  */
+    break;
+
+  case 58:
+#line 521 "sintactico_jslt.y" /* yacc.c:1646  */
+    {
+ 				(yyval.atri) = new Atributos();
+ 				(yyval.atri) = (yyvsp[-1].atri);
+ 				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
+ 			}
+#line 2181 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 521 "sintactico_jslt.y" /* yacc.c:1646  */
-    {
-				(yyval.atri) = new Atributos();
-				(yyval.atri->nodo) = new NodoJslt(0, "referencia");
- 				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
- 		 	}
-#line 2185 "sintactico_jslt.cpp" /* yacc.c:1646  */
-    break;
-
-  case 60:
 #line 527 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, "referencia");
  				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
- 			}
-#line 2195 "sintactico_jslt.cpp" /* yacc.c:1646  */
+ 		 	}
+#line 2191 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 61:
+  case 60:
 #line 533 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, "referencia");
  				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
  			}
-#line 2205 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2201 "sintactico_jslt.cpp" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 539 "sintactico_jslt.y" /* yacc.c:1646  */
+    {
+				(yyval.atri) = new Atributos();
+				(yyval.atri->nodo) = new NodoJslt(0, "referencia");
+ 				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena)));
+ 			}
+#line 2211 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 541 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 547 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri) = (yyvsp[0].atri); 				
  			}
-#line 2214 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2220 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 548 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 554 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2225 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2231 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 555 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 561 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2236 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2242 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 562 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 568 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2247 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2253 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 569 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 575 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2258 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2264 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 576 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 582 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2269 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2275 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 583 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 589 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2279 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2285 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 589 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 595 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri) = (yyvsp[0].atri);
  			}
-#line 2288 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2294 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 596 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 602 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2299 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2305 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 603 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 609 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2310 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2316 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 610 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 616 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2321 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2327 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 617 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 623 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2332 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2338 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 624 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 630 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2343 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2349 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 631 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 637 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2354 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2360 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 638 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 644 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri) = (yyvsp[0].atri);	
  			}
-#line 2363 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2369 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 646 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 652 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2374 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2380 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 653 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 659 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2385 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2391 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 660 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 666 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2396 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2402 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 667 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 673 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2407 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2413 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 674 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 680 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2418 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2424 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 681 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 687 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* (yyvsp[-2].atri->nodo)); 				
 				(yyval.atri->nodo)->addNodo(* (yyvsp[0].atri->nodo)); 				
  			}
-#line 2429 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2435 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 688 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 694 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri) = (yyvsp[0].atri); 				
  			}
-#line 2438 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2444 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 695 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 701 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri) = (yyvsp[-1].atri); 				
  			}
-#line 2447 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2453 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 700 "sintactico_jslt.y" /* yacc.c:1646  */
-    {
-				(yyval.atri) = new Atributos();
-				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
-				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena))); 				
- 			}
-#line 2457 "sintactico_jslt.cpp" /* yacc.c:1646  */
-    break;
-
-  case 86:
 #line 706 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
 				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena))); 				
  			}
-#line 2467 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2463 "sintactico_jslt.cpp" /* yacc.c:1646  */
+    break;
+
+  case 86:
+#line 712 "sintactico_jslt.y" /* yacc.c:1646  */
+    {
+				(yyval.atri) = new Atributos();
+				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[-1].cadena));
+				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[0].cadena))); 				
+ 			}
+#line 2473 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 712 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 718 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[0].cadena));
 				(yyval.atri->nodo)->addNodo(* new NodoJslt(0, (yyvsp[-1].cadena))); 				
  			}
-#line 2477 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2483 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 718 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 724 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 				(yyval.atri) = new Atributos();
 				(yyval.atri) = (yyvsp[0].atri); 				
  			}
-#line 2486 "sintactico_jslt.cpp" /* yacc.c:1646  */
-    break;
-
-  case 89:
-#line 724 "sintactico_jslt.y" /* yacc.c:1646  */
-    { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2492 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 90:
-#line 725 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 89:
+#line 730 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2498 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
+  case 90:
+#line 731 "sintactico_jslt.y" /* yacc.c:1646  */
+    { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
+#line 2504 "sintactico_jslt.cpp" /* yacc.c:1646  */
+    break;
+
   case 91:
-#line 729 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 735 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 			(yyval.atri) = new Atributos();
 			(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[0].cadena)); 				
 		}
-#line 2507 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2513 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 734 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 740 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 			(yyval.atri) = new Atributos();
 			(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[0].cadena)); 				
 		}
-#line 2516 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2522 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 739 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 745 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 			(yyval.atri) = new Atributos();
 			(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[0].cadena)); 				
 		}
-#line 2525 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2531 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 744 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 750 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 			(yyval.atri) = new Atributos();
 			(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[0].cadena)); 				
 		}
-#line 2534 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2540 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 749 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 755 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 			(yyval.atri) = new Atributos();
 			(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[0].cadena)); 				
 		}
-#line 2543 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2549 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 96:
-#line 754 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 760 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 			(yyval.atri) = new Atributos();
 			(yyval.atri->nodo) = new NodoJslt(0, (yyvsp[0].cadena)); 				
 		}
-#line 2552 "sintactico_jslt.cpp" /* yacc.c:1646  */
+#line 2558 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 759 "sintactico_jslt.y" /* yacc.c:1646  */
+#line 765 "sintactico_jslt.y" /* yacc.c:1646  */
     {
 			(yyval.atri) = new Atributos();
 			(yyval.atri) = (yyvsp[0].atri); 				
 		}
-#line 2561 "sintactico_jslt.cpp" /* yacc.c:1646  */
-    break;
-
-  case 98:
-#line 765 "sintactico_jslt.y" /* yacc.c:1646  */
-    { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2567 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 99:
-#line 766 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 98:
+#line 771 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2573 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 100:
-#line 767 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 99:
+#line 772 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2579 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 101:
-#line 768 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 100:
+#line 773 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2585 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 102:
-#line 769 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 101:
+#line 774 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2591 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 103:
-#line 770 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 102:
+#line 775 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2597 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 104:
-#line 771 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 103:
+#line 776 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2603 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 105:
-#line 772 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 104:
+#line 777 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2609 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 106:
-#line 773 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 105:
+#line 778 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2615 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 107:
-#line 774 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 106:
+#line 779 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2621 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 108:
-#line 775 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 107:
+#line 780 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2627 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 109:
-#line 776 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 108:
+#line 781 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2633 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 110:
-#line 777 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 109:
+#line 782 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2639 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 111:
-#line 778 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 110:
+#line 783 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2645 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 112:
-#line 779 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 111:
+#line 784 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2651 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 113:
-#line 780 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 112:
+#line 785 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2657 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 114:
-#line 781 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 113:
+#line 786 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2663 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 115:
-#line 782 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 114:
+#line 787 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2669 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 116:
-#line 783 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 115:
+#line 788 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2675 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 117:
-#line 784 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 116:
+#line 789 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2681 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 118:
-#line 785 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 117:
+#line 790 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2687 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 119:
-#line 786 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 118:
+#line 791 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2693 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 120:
-#line 787 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 119:
+#line 792 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2699 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 121:
-#line 788 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 120:
+#line 793 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2705 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 122:
-#line 789 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 121:
+#line 794 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2711 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 123:
-#line 790 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 122:
+#line 795 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2717 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 124:
-#line 791 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 123:
+#line 796 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2723 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 125:
-#line 792 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 124:
+#line 797 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2729 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 126:
-#line 793 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 125:
+#line 798 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2735 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 127:
-#line 794 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 126:
+#line 799 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2741 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 128:
-#line 795 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 127:
+#line 800 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2747 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 129:
-#line 796 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 128:
+#line 801 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2753 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 130:
-#line 797 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 129:
+#line 802 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2759 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 131:
-#line 798 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 130:
+#line 803 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2765 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 132:
-#line 799 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 131:
+#line 804 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2771 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 133:
-#line 800 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 132:
+#line 805 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2777 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 134:
-#line 801 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 133:
+#line 806 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2783 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 135:
-#line 802 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 134:
+#line 807 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2789 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 136:
-#line 803 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 135:
+#line 808 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2795 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 137:
-#line 804 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 136:
+#line 809 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2801 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 138:
-#line 805 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 137:
+#line 810 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2807 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 139:
-#line 806 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 138:
+#line 811 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2813 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 140:
-#line 807 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 139:
+#line 812 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2819 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 141:
-#line 808 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 140:
+#line 813 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2825 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 142:
-#line 809 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 141:
+#line 814 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2831 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 143:
-#line 810 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 142:
+#line 815 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2837 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 144:
-#line 811 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 143:
+#line 816 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2843 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 145:
-#line 812 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 144:
+#line 817 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2849 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 146:
-#line 813 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 145:
+#line 818 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2855 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 147:
-#line 814 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 146:
+#line 819 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2861 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 148:
-#line 815 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 147:
+#line 820 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2867 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 149:
-#line 816 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 148:
+#line 821 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2873 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 150:
-#line 817 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 149:
+#line 822 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2879 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 151:
-#line 818 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 150:
+#line 823 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2885 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 152:
-#line 819 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 151:
+#line 824 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2891 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 153:
-#line 822 "sintactico_jslt.y" /* yacc.c:1646  */
-    { sprintf((yyval.cadena), "%s %s", (yyvsp[-1].cadena), (yyvsp[0].cadena)); }
+  case 152:
+#line 825 "sintactico_jslt.y" /* yacc.c:1646  */
+    { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2897 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 154:
-#line 823 "sintactico_jslt.y" /* yacc.c:1646  */
-    { sprintf((yyval.cadena), "%s", ""); }
+  case 153:
+#line 828 "sintactico_jslt.y" /* yacc.c:1646  */
+    { sprintf((yyval.cadena), "%s %s", (yyvsp[-1].cadena), (yyvsp[0].cadena)); }
 #line 2903 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 155:
-#line 826 "sintactico_jslt.y" /* yacc.c:1646  */
-    { sprintf((yyval.cadena), "%s=%s", (yyvsp[-2].cadena), (yyvsp[0].cadena)); }
+  case 154:
+#line 829 "sintactico_jslt.y" /* yacc.c:1646  */
+    { sprintf((yyval.cadena), "%s", ""); }
 #line 2909 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 156:
-#line 827 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 155:
+#line 832 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s=%s", (yyvsp[-2].cadena), (yyvsp[0].cadena)); }
 #line 2915 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 157:
-#line 828 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 156:
+#line 833 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s=%s", (yyvsp[-2].cadena), (yyvsp[0].cadena)); }
 #line 2921 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 158:
-#line 829 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 157:
+#line 834 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s=%s", (yyvsp[-2].cadena), (yyvsp[0].cadena)); }
 #line 2927 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 159:
-#line 832 "sintactico_jslt.y" /* yacc.c:1646  */
-    { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
+  case 158:
+#line 835 "sintactico_jslt.y" /* yacc.c:1646  */
+    { sprintf((yyval.cadena), "%s=%s", (yyvsp[-2].cadena), (yyvsp[0].cadena)); }
 #line 2933 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 160:
-#line 833 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 159:
+#line 838 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2939 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 161:
-#line 834 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 160:
+#line 839 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2945 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
-  case 162:
-#line 835 "sintactico_jslt.y" /* yacc.c:1646  */
+  case 161:
+#line 840 "sintactico_jslt.y" /* yacc.c:1646  */
     { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
 #line 2951 "sintactico_jslt.cpp" /* yacc.c:1646  */
     break;
 
+  case 162:
+#line 841 "sintactico_jslt.y" /* yacc.c:1646  */
+    { sprintf((yyval.cadena), "%s", (yyvsp[0].cadena)); }
+#line 2957 "sintactico_jslt.cpp" /* yacc.c:1646  */
+    break;
 
-#line 2955 "sintactico_jslt.cpp" /* yacc.c:1646  */
+
+#line 2961 "sintactico_jslt.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3179,7 +3185,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 838 "sintactico_jslt.y" /* yacc.c:1906  */
+#line 844 "sintactico_jslt.y" /* yacc.c:1906  */
 
 
 void jsltinit(){

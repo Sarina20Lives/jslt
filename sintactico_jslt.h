@@ -34,7 +34,7 @@
 # define YY_JSLT_SINTACTICO_JSLT_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int jsltdebug;
@@ -162,7 +162,7 @@ extern int jsltdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 20 "sintactico_jslt.y" /* yacc.c:1909  */
+#line 24 "sintactico_jslt.y" /* yacc.c:1909  */
 
 	char cadena[1000];
 	struct Atributos * atri;

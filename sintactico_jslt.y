@@ -4,12 +4,16 @@
 #include <stdlib.h>	
 #include "lexico_jslt.h"
 #include "nodojslt.h"
+#include "tipos.h"
 #include <QString>
 extern int jsltlex(void);
 extern char * jslttext;
 extern int jsltline;
 void jslterror(char * s);
 QString salida;
+
+
+Tipos *tipo = new Tipos();
 
 struct Atributos{
 	NodoJslt *nodo = new NodoJslt();
@@ -57,12 +61,12 @@ struct Atributos{
 %token <cadena> EVERYTHING CARACTER FLOTANTE ENTERO CADENA ID TRUE FALSE
 
 /* No terminales: */
-%type <cadena> type
 %type <cadena> atribute 
 %type <cadena> atributes 
 %type <cadena> allTokens
-%type <cadena> variety
 
+%type <atri> variety
+%type <atri> type
 %type <atri> jslt 
 %type <atri> transformer
 %type <atri> templates 
@@ -109,16 +113,16 @@ struct Atributos{
  		{
  			$<atri>$ = new Atributos();
 			$<atri>$ = $<atri>1;
-			fprintf(stderr, "%s", $<atri->nodo>$->getDOT().toUtf8().data());
+			$<atri->nodo>$->genAST("jstl");
  		}
  ;
 
  transformer :  TAG_TRANSFORMER PR_RUTA ASIGN CADENA PR_VERSION ASIGN CADENA SYM_END templates TAG_FINAL
 			 	{
 			 		$<atri>$ = new Atributos();
-			 		$<atri->nodo>$ = new NodoJslt(0, "transformacion");
-			 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>4));
-			 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>7));
+			 		$<atri->nodo>$ = new NodoJslt(tipo->TRANSFORMER, "transformacion");
+			 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->CADENA, $<cadena>4));
+			 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->CADENA, $<cadena>7));
 					$<atri->nodo>$->addNodo(* $<atri->nodo>9);  		
 			 	}
  ;
@@ -138,14 +142,14 @@ struct Atributos{
 			 	| %empty
 			 	{
 			 		$<atri>$ = new Atributos();
-			 		$<atri->nodo>$ = new NodoJslt(0, "plantillas");
+			 		$<atri->nodo>$ = new NodoJslt(tipo->PLANTILLAS, "plantillas");
 			 	} 
  ;
 
  template : OPEN_PLANTILLA PR_NAME_OBJ ASIGN nameTemplate SYM_END  elements CLOSE_PLANTILLA
  			{
 		 		$<atri>$ = new Atributos();
-			 	$<atri->nodo>$ = new NodoJslt(0, "plantilla");
+			 	$<atri->nodo>$ = new NodoJslt(tipo->PLANTILLA, "plantilla");
 			 	$<atri->nodo>$->addNodo(* $<atri->nodo>4);
 			 	$<atri->nodo>$->addNodo(* $<atri->nodo>6);
  			}
@@ -159,7 +163,7 @@ struct Atributos{
  				| SYM_RAIZ	
  				{
 			 		$<atri>$ = new Atributos();
-			 		$<atri->nodo>$ = new NodoJslt(0, $<cadena>1);	
+			 		$<atri->nodo>$ = new NodoJslt(tipo->REF_RAIZ, $<cadena>1);	
  				}
  ;
 
@@ -167,26 +171,26 @@ struct Atributos{
  			{
 		 		$<atri>$ = new Atributos();
 		 		$<atri>$ = $<atri>1;
-		 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));	
+		 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->REF, $<cadena>2));	
  			}
  		 	| REF 
  		 	{
 		 		$<atri>$ = new Atributos();
-		 		$<atri->nodo>$ = new NodoJslt(0, "referencia");
-		 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+		 		$<atri->nodo>$ = new NodoJslt(tipo->REFERENCIA, "referencia");
+		 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->REF, $<cadena>1));
  		 	}
  ;
 
  elements : element elements 
  			{
 		 		$<atri>$ = new Atributos();
-		 		$<atri>$ = $<atri>1;
+		 		$<atri>$ = $<atri>2;
 		 		$<atri->nodo>$->prepNodo(* $<atri->nodo>1);
  			}
 		 	| %empty 
 		 	{
 		 		$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, "elementos");		 		
+				$<atri->nodo>$ = new NodoJslt(tipo->ELEMENTS, "elementos");		 		
 		 	}
  ;
 
@@ -235,136 +239,137 @@ struct Atributos{
  html :	OPEN_HTML contents CLOSE_HTML
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));
  		}
  	 	| OPEN_BODY contents CLOSE_BODY
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));
  		}
  		| OPEN_HEAD OPEN_TITLE contents CLOSE_TITLE CLOSE_HEAD
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		sprintf($<cadena>1, "%s %s", $<cadena>1, $<cadena>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		char aux[1000];
+	 		sprintf(aux, "%s %s", $<cadena>1, $<cadena>2);
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, aux));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>3);
-	 		sprintf($<cadena>4, "%s %s", $<cadena>4, $<cadena>5);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>4)); 		
+	 		sprintf(aux, "%s %s", $<cadena>4, $<cadena>5);
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, aux)); 		
  		}
 	  	| OPEN_H1 contents CLOSE_H1
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));
  		}
 		| OPEN_H2 contents CLOSE_H2
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));
  		}
 		| OPEN_H3 contents CLOSE_H3
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));
  		}
 		| OPEN_H4 contents CLOSE_H4
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));
  		}
 		| OPEN_H5 contents CLOSE_H5
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));
  		}
 		| OPEN_H6 contents CLOSE_H6
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));
  		}
 		| OPEN_TABLE atributes SYM_END 	contents CLOSE_TABLE
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
 	 		sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>4);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>5));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>5));
  		}
 		| OPEN_TR atributes SYM_END contents CLOSE_TR
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
 	 		sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>4);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>5));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>5));
 	 	}
  		| OPEN_TH atributes SYM_END contents CLOSE_TH
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
 	 		sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1 ));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1 ));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>4);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>5));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>5));
  		}
 		| OPEN_TD atributes SYM_END contents CLOSE_TD
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
 	 		sprintf($<cadena>1, "%s %s %s", $<cadena>1, $<cadena>2, $<cadena>3);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1 ));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1 ));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>4);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>5));
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>5));
  		}
 		| OPEN_P contents CLOSE_P
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));		
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));		
 	 	}
 		| OPEN_B contents CLOSE_B
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));		
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));		
  		}
 		| OPEN_I contents CLOSE_I
  		{
 	 		$<atri>$ = new Atributos();
-	 		$<atri->nodo>$ = new NodoJslt(0, "html");
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+	 		$<atri->nodo>$ = new NodoJslt(tipo->HTML, "html");
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_INICIO, $<cadena>1));
 	 		$<atri->nodo>$->addNodo(* $<atri->nodo>2);
-	 		$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>3));		
+	 		$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ETQ_FIN, $<cadena>3));		
  		}
  ;
 
@@ -378,12 +383,12 @@ struct Atributos{
 	 		{
 		 		$<atri>$ = new Atributos();
 		 		$<atri>$ = $<atri>2;
-		 		$<atri->nodo>$->prepNodo(* $<atri->nodo>1); 
+		 		$<atri->nodo>$->prepNodo(* new NodoJslt(tipo->TOKEN, $<cadena>1)); 
 	 		}
 	 		| %empty 
 	 		{
 		 		$<atri>$ = new Atributos();
-		 		$<atri->nodo>$ = new NodoJslt(0, "contenido");
+		 		$<atri->nodo>$ = new NodoJslt(tipo->CONTENT, "contenido");
 	 		}
  ;
 
@@ -391,9 +396,9 @@ struct Atributos{
  declare :  TAG_VARIABLE type ASIGN ID TAG_END 
  			{
  				$<atri>$ = new Atributos();
- 				$<atri->nodo>$ = new NodoJslt(0, "declare");
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>2));
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>4));
+ 				$<atri->nodo>$ = new NodoJslt(tipo->DECLARE, "declare");
+ 				$<atri->nodo>$->addNodo(* $<atri->nodo>2 );
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ID, $<cadena>4));
  			}
 
  ;
@@ -401,16 +406,16 @@ struct Atributos{
  asigment : TAG_ASIGNAR PR_VAR ASIGN ID PR_VALUE ASIGN expresion TAG_END
  			{
  				$<atri>$ = new Atributos();
- 				$<atri->nodo>$ = new NodoJslt(0, "asignar");
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>4));
- 				$<atri->nodo>$->addNodo(* $<atri->nodo>6); 			
+ 				$<atri->nodo>$ = new NodoJslt(tipo->ASIGNAR, "asignar");
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ID, $<cadena>4));
+ 				$<atri->nodo>$->addNodo(* $<atri->nodo>7); 			
  			}
  ;
 
  aplicate : TAG_APLICAR PR_SELECTED ASIGN references TAG_END 
 			{
  				$<atri>$ = new Atributos();
- 				$<atri->nodo>$ = new NodoJslt(0, "aplicar");
+ 				$<atri->nodo>$ = new NodoJslt(tipo->APLICAR, "aplicar");
  				$<atri->nodo>$->addNodo(* $<atri->nodo>4); 			
  			}
  ;
@@ -418,7 +423,7 @@ struct Atributos{
  getValue : TAG_VALOR PR_SELECTED ASIGN expresion TAG_END
 			{
  				$<atri>$ = new Atributos();
- 				$<atri->nodo>$ = new NodoJslt(0, "valor-de");
+ 				$<atri->nodo>$ = new NodoJslt(tipo->GET_VALUE, "valor-de");
  				$<atri->nodo>$->addNodo(* $<atri->nodo>4); 			
  			}
  ;
@@ -426,7 +431,7 @@ struct Atributos{
  forEach : OPEN_FOREACH PR_SELECTED ASIGN references SYM_END elements CLOSE_FOREACH
 			{
  				$<atri>$ = new Atributos();
- 				$<atri->nodo>$ = new NodoJslt(0, "para-cada");
+ 				$<atri->nodo>$ = new NodoJslt(tipo->FOR_EACH, "para-cada");
  				$<atri->nodo>$->addNodo(* $<atri->nodo>4);
  				$<atri->nodo>$->addNodo(* $<atri->nodo>6); 			
  			}
@@ -435,7 +440,7 @@ struct Atributos{
  if : OPEN_IF PR_CONDITION ASIGN expresion SYM_END elements CLOSE_IF
  			{
  				$<atri>$ = new Atributos();
- 				$<atri->nodo>$ = new NodoJslt(0, "if");
+ 				$<atri->nodo>$ = new NodoJslt(tipo->IF, "if");
  				$<atri->nodo>$->addNodo(* $<atri->nodo>4);
  				$<atri->nodo>$->addNodo(* $<atri->nodo>6); 			
  			}
@@ -444,7 +449,7 @@ struct Atributos{
  switch : OPEN_SWITCH cases CLOSE_SWITCH
  			{
  				$<atri>$ = new Atributos();
- 				$<atri->nodo>$ = new NodoJslt(0, "en-caso");
+ 				$<atri->nodo>$ = new NodoJslt(tipo->SWITCH, "en-caso");
  				$<atri->nodo>$->addNodo(* $<atri->nodo>2); 			
  			}
 ;
@@ -458,20 +463,20 @@ struct Atributos{
  		| other 
  		{
  			$<atri>$ = new Atributos();
- 			$<atri->nodo>$ = new NodoJslt(0, "casos");
+ 			$<atri->nodo>$ = new NodoJslt(tipo->CASES, "casos");
  			$<atri->nodo>$->addNodo(* $<atri->nodo>1);
  		}
  		| %empty 
  		{
 			$<atri>$ = new Atributos();
- 			$<atri->nodo>$ = new NodoJslt(0, "casos");
+ 			$<atri->nodo>$ = new NodoJslt(tipo->CASES, "casos");
  		}
  ;
 
  case : OPEN_CASE PR_CONDITION ASIGN expresion SYM_END elements CLOSE_CASE
  		{
  			$<atri>$ = new Atributos();
- 			$<atri->nodo>$ = new NodoJslt(0, "de");
+ 			$<atri->nodo>$ = new NodoJslt(tipo->CASE, "de");
  			$<atri->nodo>$->addNodo(* $<atri->nodo>4);
  			$<atri->nodo>$->addNodo(* $<atri->nodo>6);
  		}
@@ -480,7 +485,7 @@ struct Atributos{
  other : OPEN_DEFAULT elements CLOSE_DEFAULT
   		{
  			$<atri>$ = new Atributos();
- 			$<atri->nodo>$ = new NodoJslt(0, "cualquier-otro");
+ 			$<atri->nodo>$ = new NodoJslt(tipo->OTHER, "cualquier-otro");
  			$<atri->nodo>$->addNodo(* $<atri->nodo>2);
  		}
  ;
@@ -488,19 +493,19 @@ struct Atributos{
  references : SYM_ACTUAL 
  			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, "referencia");
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+				$<atri->nodo>$ = new NodoJslt(tipo->REFERENCIA, "referencia");
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->REF_ACTUAL, $<cadena>1));
  			}
  		 	| SYM_PADRE
 			{
  				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, "referencia");
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+				$<atri->nodo>$ = new NodoJslt(tipo->REFERENCIA, "referencia");
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->REF_PADRE, $<cadena>1));
 			} 			
  			| reference OPEN_COR expresion CLOSE_COR
  			{
  				$<atri>$ = new Atributos();
- 				$<atri->nodo>$ = new NodoJslt(0, "refPuntero");
+ 				$<atri->nodo>$ = new NodoJslt(tipo->REF_PUNT, "refPuntero");
  				$<atri->nodo>$->addNodo(* $<atri->nodo>1);
  				$<atri->nodo>$->addNodo(* $<atri->nodo>3);
  			}
@@ -515,31 +520,31 @@ struct Atributos{
  			{
  				$<atri>$ = new Atributos();
  				$<atri>$ = $<atri>1;
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>2));
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->REF, $<cadena>2));
  			}
  			| reference REFALL
  			{
  				$<atri>$ = new Atributos();
  				$<atri>$ = $<atri>1;
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>2));
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->REFALL, $<cadena>2));
  			}
  		 	| REF 
  		 	{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, "referencia");
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+				$<atri->nodo>$ = new NodoJslt(tipo->REFERENCIA, "referencia");
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->REF, $<cadena>1));
  		 	}
  		 	| REFALL
  			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, "referencia");
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+				$<atri->nodo>$ = new NodoJslt(tipo->REFERENCIA, "referencia");
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->REF, $<cadena>1));
  			}
  			| ID
  			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, "referencia");
- 				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1));
+				$<atri->nodo>$ = new NodoJslt(tipo->REFERENCIA, "referencia");
+ 				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ID, $<cadena>1));
  			}
  ;
 
@@ -553,42 +558,42 @@ struct Atributos{
  logical : 	logical OR logical
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->OR, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| logical NOR logical
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->NOR, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| logical XOR logical
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->XOR, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| logical AND logical
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->AND, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 	 		| logical NAND logical
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->NAND, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| NOT logical
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>1);
+				$<atri->nodo>$ = new NodoJslt(tipo->NOT, $<cadena>1);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>2); 				
  			}
 		 	| relational
@@ -601,42 +606,42 @@ struct Atributos{
  relational : arithmetic EQUAL arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->EQUAL, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic NO_EQUAL arithmetic
  			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->NO_EQUAL, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic LESS_EQUAL arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->LESS_EQUAL, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic LESS arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->LESS, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic HIGHER arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->HIGHER, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic HIGHER_EQUAL arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->HIGHER_EQUAL, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
@@ -651,42 +656,42 @@ struct Atributos{
  arithmetic : arithmetic SUM arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->SUM, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic SUB arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->SUB, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic MUL arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->MUL, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic DIV arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->DIV, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic MOD arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->MOD, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
 		 	| arithmetic POW arithmetic
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
+				$<atri->nodo>$ = new NodoJslt(tipo->POW, $<cadena>2);
 				$<atri->nodo>$->addNodo(* $<atri->nodo>1); 				
 				$<atri->nodo>$->addNodo(* $<atri->nodo>3); 				
  			}
@@ -705,20 +710,23 @@ struct Atributos{
 		 	| NOTHING ID
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>1);
-				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>2)); 				
+				$<atri->nodo>$ = new NodoJslt(tipo->NOTHING, $<cadena>1);
+				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ID, $<cadena>2)); 				
  			}
 	 	 	| variety ID
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>1);
-				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>2)); 				
+				$<atri->nodo>$ = new NodoJslt(tipo->VARIETY_IZQ, "variacion-izq");
+				$<atri->nodo>$->addNodo(* $<atri->nodo>1);
+				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ID, $<cadena>2));
+		
  			}
 	 		| ID variety
 			{
 				$<atri>$ = new Atributos();
-				$<atri->nodo>$ = new NodoJslt(0, $<cadena>2);
-				$<atri->nodo>$->addNodo(* new NodoJslt(0, $<cadena>1)); 				
+				$<atri->nodo>$ = new NodoJslt(tipo->VARIETY_DER, "variacion-der");
+				$<atri->nodo>$->addNodo(* new NodoJslt(tipo->ID, $<cadena>1));
+				$<atri->nodo>$->addNodo(* $<atri->nodo>2); 				
  			}
 	 		| value
 			{
@@ -727,41 +735,48 @@ struct Atributos{
  			}
  ;
 
- variety : INC 	{ sprintf($$, "%s", $1); }
- 	| DEC 		{ sprintf($$, "%s", $1); }
+ variety : INC 	
+ 			{ 
+ 				$<atri>$ = new Atributos();
+ 				$<atri->nodo>$ = new NodoJslt(tipo->INC, $<cadena>1); 
+ 			}
+ 	| DEC 	{ 
+ 				$<atri>$ = new Atributos();
+ 				$<atri->nodo>$ = new NodoJslt(tipo->DEC, $<cadena>1); 
+ 			}
  ;
 
  value : ENTERO
 		{
 			$<atri>$ = new Atributos();
-			$<atri->nodo>$ = new NodoJslt(0, $<cadena>1); 				
+			$<atri->nodo>$ = new NodoJslt(tipo->ENTERO, $<cadena>1); 				
 		}
 	 	| CARACTER
 		{
 			$<atri>$ = new Atributos();
-			$<atri->nodo>$ = new NodoJslt(0, $<cadena>1); 				
+			$<atri->nodo>$ = new NodoJslt(tipo->CARACTER, $<cadena>1); 				
 		}
 	 	| CADENA
 		{
 			$<atri>$ = new Atributos();
-			$<atri->nodo>$ = new NodoJslt(0, $<cadena>1); 				
+			$<atri->nodo>$ = new NodoJslt(tipo->CADENA, $<cadena>1); 				
 		}
 	 	| FLOTANTE
 		{
 			$<atri>$ = new Atributos();
-			$<atri->nodo>$ = new NodoJslt(0, $<cadena>1); 				
+			$<atri->nodo>$ = new NodoJslt(tipo->FLOAT, $<cadena>1); 				
 		}
 	 	| TRUE 
 		{
 			$<atri>$ = new Atributos();
-			$<atri->nodo>$ = new NodoJslt(0, $<cadena>1); 				
+			$<atri->nodo>$ = new NodoJslt(tipo->TRUE, $<cadena>1); 				
 		}
 	 	| FALSE 
 		{
 			$<atri>$ = new Atributos();
-			$<atri->nodo>$ = new NodoJslt(0, $<cadena>1); 				
+			$<atri->nodo>$ = new NodoJslt(tipo->FALSE, $<cadena>1); 				
 		}
-	 	| references
+	 	| references 
 		{
 			$<atri>$ = new Atributos();
 			$<atri>$ = $<atri>1; 				
@@ -835,10 +850,26 @@ struct Atributos{
 	| PR_HEIGHT ASIGN CADENA 		{ sprintf($$, "%s=%s", $1, $3); }
  ;
 
- type : TYPE_ENTERO { sprintf($$, "%s", $1); }
- 	| TYPE_CADENA 	{ sprintf($$, "%s", $1); }
-	| TYPE_BOOLEAN 	{ sprintf($$, "%s", $1); }
- 	| TYPE_CARACTER { sprintf($$, "%s", $1); }
+ type : TYPE_ENTERO 
+ 		{
+			$<atri>$ = new Atributos();
+			$<atri->nodo>$ = new NodoJslt(tipo->ENTERO, $<cadena>1);
+		}
+		| TYPE_CADENA 	
+		{
+			$<atri>$ = new Atributos();
+			$<atri->nodo>$ = new NodoJslt(tipo->CADENA, $<cadena>1);
+		}
+		| TYPE_BOOLEAN 	
+		{
+			$<atri>$ = new Atributos();
+			$<atri->nodo>$ = new NodoJslt(tipo->BOOLEAN, $<cadena>1);
+		} 
+		| TYPE_CARACTER 
+		{
+			$<atri>$ = new Atributos();
+			$<atri->nodo>$ = new NodoJslt(tipo->CARACTER, $<cadena>1);
+		}
  ;
 
 %%

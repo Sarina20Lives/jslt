@@ -27,6 +27,7 @@ public:
     void setNodos(QList<NodoJslt> nodos, NodoJslt nodo);
     QList<NodoJslt> getNodos();
     QString getDOT();
+    void genAST(QString name);
     QString getValor();
     int getTipo();
 };

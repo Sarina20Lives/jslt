@@ -39,6 +39,12 @@
 #if YYDEBUG
 extern int jsltdebug;
 #endif
+/* "%code requires" blocks.  */
+#line 24 "sintactico_jslt.y" /* yacc.c:1909  */
+
+    #include "nodojslt.h"
+
+#line 48 "sintactico_jslt.h" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -162,12 +168,12 @@ extern int jsltdebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 24 "sintactico_jslt.y" /* yacc.c:1909  */
+#line 31 "sintactico_jslt.y" /* yacc.c:1909  */
 
 	char cadena[1000];
 	struct Atributos * atri;
 
-#line 171 "sintactico_jslt.h" /* yacc.c:1909  */
+#line 177 "sintactico_jslt.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -177,5 +183,11 @@ union YYSTYPE
 extern YYSTYPE jsltlval;
 
 int jsltparse (void);
+/* "%code provides" blocks.  */
+#line 27 "sintactico_jslt.y" /* yacc.c:1909  */
+ 
+	NodoJslt * parsejslt(QString *entrada, QList<QString> *errores); 
+
+#line 192 "sintactico_jslt.h" /* yacc.c:1909  */
 
 #endif /* !YY_JSLT_SINTACTICO_JSLT_H_INCLUDED  */

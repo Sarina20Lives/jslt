@@ -1,6 +1,8 @@
 #include "nodojslt.h"
 #include <QString>
 #include <QList>
+#include <QProcess>
+#include <QStringList>
 
 int NodoJslt::ID = 0;
 
@@ -33,6 +35,30 @@ QString NodoJslt::getDOT()
     return DOT;
 }
 
+void NodoJslt::genAST(QString name)
+{
+    QString archivoDOT = name.append(".dot");
+    QString archivoIMG = name.replace(".dot", ".png");
+    FILE *fp;
+    fp = fopen ( archivoDOT.toUtf8().data(), "w+" );
+
+    if(fp == NULL){
+        fprintf(stderr, "No es posible crear el archivo '%s'\n", archivoDOT.toUtf8().data());
+        return;
+    }else{
+        fprintf(fp, "%s", this->getDOT().toUtf8().data());
+        fclose (fp);
+    }
+
+    //dot -Tjpg astJson.dot -o astJson.jpg
+    QString program = "dot";
+    QStringList arguments;
+    arguments << "-Tpng" << archivoDOT << "-o" << archivoIMG;
+    QProcess *myProcess = new QProcess();
+    myProcess->start(program, arguments);
+}
+
+
 QString NodoJslt::getValor()
 {
     return this->valor;
@@ -45,10 +71,10 @@ int NodoJslt::getTipo()
 
 QString NodoJslt::declareDOT()
 {
-    return QString("\t%1[label=\"%2|%3|%4\"];\n")
+    return QString("\t%1[label=\"%2|%3\"];\n")
             .arg(this->id)
             .arg(this->tipo)
-            .arg(this->valor);
+            .arg(this->valor.replace("\"","").replace("<","\\<").replace(">","\\>"));
 }
 
 QString NodoJslt::recorrerNodos(QString &padre, QList<NodoJslt> *&nodos) {

@@ -6,6 +6,7 @@
 #include "codeeditor.h"
 #include <QtWidgets>
 #include "sintactico_jslt.h"
+#include "nodojslt.h"
 #include "lexico_jslt.h"
 extern int jsltparse();
 extern QString salida;
@@ -269,16 +270,12 @@ void MainWindow::on_pBanalize_clicked()
     }
 
     QString entrada = editor->toPlainText();
+    QStringList * list = new QStringList();
+    reportQMessageBox(editor->toPlainText());
     if(entrada.length()==0){
         QMessageBox::critical(this, "Error en el análisis","No se admite una cadena vacia.");
         return;
     }
-
-    YY_BUFFER_STATE bufferState = jslt_scan_string(entrada.toUtf8().constData());
-    int estado = jsltparse();
-    if(estado==0){
-        reportQMessageBox("El análisis ha sido correcto.");
-    }
-
-    jslt_delete_buffer(bufferState);
+    NodoJslt *nodo = parsejslt(&entrada, list);
+    nodo->genAST("jslt");
 }

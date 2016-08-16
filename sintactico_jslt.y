@@ -2,8 +2,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>	
-#include "lexico_jslt.h"
 #include "nodojslt.h"
+#include "lexico_jslt.h"
 #include "tipos.h"
 #include <QString>
 extern int jsltlex(void);
@@ -14,12 +14,19 @@ QString salida;
 
 
 Tipos *tipo = new Tipos();
+NodoJslt *raiz = new NodoJslt();
 
 struct Atributos{
 	NodoJslt *nodo = new NodoJslt();
 };
 
 %}
+%code requires {
+    #include "nodojslt.h"
+}
+%code provides { 
+	NodoJslt * parsejslt(QString *entrada, QList<QString> *errores); 
+}
 
 %union{
 	char cadena[1000];
@@ -113,7 +120,7 @@ struct Atributos{
  		{
  			$<atri>$ = new Atributos();
 			$<atri>$ = $<atri>1;
-			$<atri->nodo>$->genAST("jstl");
+			raiz = $<atri->nodo>$;
  		}
  ;
 
@@ -881,4 +888,14 @@ void jsltinit(){
 void jslterror(char *s)
 {
   fprintf(stderr, "Error sintactico: %s", s);
+}
+
+NodoJslt * parsejslt(QString *entrada, QList<QString> *errores){
+    YY_BUFFER_STATE bufferState = jslt_scan_string(entrada->toUtf8().constData());
+    int estado = jsltparse();
+    if(estado!=0){
+        errores->append("Imposible recuperarse de los errores sintácticos en el archivo JSLT.");
+    }
+    jslt_delete_buffer(bufferState);
+    return raiz;
 }
